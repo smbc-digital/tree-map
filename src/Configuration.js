@@ -1,4 +1,3 @@
-import Leaflet from 'leaflet'
 import { tpoPopup, conservationPopup, planappPopup } from './Popups'
 import { tpoStyle, conservationStyle, planappStyle} from './Styles'
 
