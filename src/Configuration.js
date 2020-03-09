@@ -4,7 +4,7 @@ import { tpoStyle, conservationStyle, planappStyle} from './Styles'
 const Configuration = {
     Map: {
         StartingLatLng: [53.3915, -2.125143],
-        StartingZoom: 12,
+        StartingZoom: 15,
         FullscreenControl: true,
         DisplayLayerControls: true,
         DisplayGrayScale: true,
