@@ -1,10 +1,10 @@
-import { Land_Ownership_Popup, Leases_Popup } from './Popups'
-import { LandOwnershipstyle, Leasesstyle} from './Styles'
+import { tpoPopup, conservationPopup, planappPopup } from './Popups'
+import { tpoStyle, conservationStyle, planappStyle} from './Styles'
 
 const Configuration = {
     Map: {
         StartingLatLng: [53.3915, -2.125143],
-        StartingZoom: 15,
+        StartingZoom: 12,
         FullscreenControl: true,
         DisplayLayerControls: true,
         DisplayGrayScale: true,
@@ -14,11 +14,70 @@ const Configuration = {
     DynamicData: 
     [
         {
+            key: 'Conservation Areas',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=heritage:conservation_area&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: conservationPopup,
+                maxZoom: 2,
+                style: conservationStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+        {
+            key: 'Tree Planning App Last Month',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=tree_plan_apps_1month&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: planappPopup,
+                maxZoom: 2,
+                style: planappStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
+        {
+            key: 'Tree Planning App Last Year',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tree_plan_apps_1year&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: planappPopup,
+                maxZoom: 2,
+                style: planappStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
+        {
+            key: 'Tree Planning App Last 3 Years',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tree_plan_apps_3years&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: planappPopup,
+                maxZoom: 2,
+                style: planappStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
+        {
+            key: 'Tree Preservation Orders',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tpo_merged&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: tpoPopup,
+                maxZoom: 2,
+                style: tpoStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
+        {
             key: 'os1250_line',
-            url: 'http://scnmapsrv.stockport.gov.uk:8080/geoserver/wms?',
+            url: 'http://spatial.stockport.gov.uk/geoserver/wms?',
             layerOptions: {
                 maxZoom: 20,
-                minZoom: 19,
+                minZoom: 18,
                 layers: 'base_maps:os1250_line',
                 format: 'image/png',
                 transparent: true
@@ -28,40 +87,18 @@ const Configuration = {
         },
         {
             key: 'os1250_text',
-            url: 'http://scnmapsrv.stockport.gov.uk:8080/geoserver/wms?',
+            url: 'http://spatial.stockport.gov.uk/geoserver/wms?',
             layerOptions: {
                 maxZoom: 20,
-                minZoom: 19,
+                minZoom: 18,
                 layers: 'base_maps:os1250_text',
                 format: 'image/png',
                 transparent: true
             },
             displayOverlay: false,
             visibleByDefault: true
-        },
-        {
-            key: 'Leases',
-            url: 'http://scnmapsrv.stockport.gov.uk:8080/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=land_ownership:leases&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
-            layerOptions: {
-                onEachFeature: Leases_Popup,
-                maxZoom: 2,
-                style: Leasesstyle
-            },
-            displayOverlay: true,
-            visibleByDefault: true
-        },
-       
-        {
-            key: 'Council Owned Land',
-            url: 'http://scnmapsrv.stockport.gov.uk:8080/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=land_ownership:council_owned_land&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
-            layerOptions: {
-                onEachFeature: Land_Ownership_Popup,
-                maxZoom: 2,
-                style: LandOwnershipstyle
-            },
-            displayOverlay: true,
-            visibleByDefault: true
         }
+        
     ],
     StaticData: 
     [

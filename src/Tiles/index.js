@@ -25,4 +25,4 @@ const streetLayer = Leaflet.mapboxGL({
   maxZoom: 20
 })
 
-export {greyscale, os_open, streetLayer}
+export { greyscale, os_open, streetLayer }
