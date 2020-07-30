@@ -5,6 +5,7 @@ import Config from './Configuration.js'
 import { os_open } from './Tiles'
 import { AddLayerControlsLayers, AddLayerControlsOverlays, SearchControlOverlay } from './Controls'
 import leafletPip from '@mapbox/leaflet-pip'
+import locate from 'leaflet.locatecontrol'  // eslint-disable-line no-unused-vars
 
 function App() {
   const mapRef = useRef()
@@ -29,7 +30,14 @@ function App() {
     setStaticLayers()
     setDynamicLayers()
     setLayerControls()
+    setLocateControl()
   }, [])
+
+  const setLocateControl = () => {
+    if (Config.Map.EnableLocateControl) {
+      Leaflet.control.locate().addTo(mapRef.current) 
+    }
+  }
 
   const setLayerControls = () => {
     const controlLayers = AddLayerControlsLayers(Config.Map)
@@ -115,8 +123,19 @@ function App() {
         .setContent(mapRef.current._popup._content)
         .openOn(mapRef.current)
     }
+
+    panMap(onClickLatLng)
+
   }, [onClickLatLng])
+
+  const panMap = latLng => {
+    var px = mapRef.current.project(latLng)
+    px.y -= mapRef.current._popup._container.clientHeight/2
+    mapRef.current.panTo(mapRef.current.unproject(px),{animate: true})
+  }
+
   const onPopupOpenHandler = event =>  setOnClickLatLng(event.popup._latlng)
+  
   useEffect(() => {
     mapRef.current.addEventListener('popupopen', onPopupOpenHandler)
 
