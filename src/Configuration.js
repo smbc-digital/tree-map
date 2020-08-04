@@ -1,10 +1,10 @@
 import { tpoPopup, conservationPopup, planappPopup } from './Popups'
-import { tpoStyle, conservationStyle, planappStyle} from './Styles'
+import { tpoStyle, conservationStyle, planappStyle, proposedtpoStyle, revokedtpoStyle} from './Styles'
 
 const Configuration = {
     Map: {
-        StartingLatLng: [53.3915, -2.125143],
-        StartingZoom: 15,
+        StartingLatLng: [53.404056,-2.154329],
+        StartingZoom: 17,
         FullscreenControl: true,
         DisplayLayerControls: true,
         DisplayGrayScale: true,
@@ -14,6 +14,42 @@ const Configuration = {
     },
     DynamicData: 
     [
+        {
+            key: 'Tree Preservation Orders',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tpo_merged&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: tpoPopup,
+                maxZoom: 2,
+                style: tpoStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
+        {
+            key: 'TPO - Proposed',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tpo_proposed&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: tpoPopup,
+                maxZoom: 2,
+                style: proposedtpoStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
+        {
+            key: 'TPO - Revoked',
+            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tpo_revoked&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
+            layerOptions: {
+                onEachFeature: tpoPopup,
+                maxZoom: 2,
+                style: revokedtpoStyle
+            },
+            displayOverlay: true,
+            visibleByDefault: true
+        },
+
         {
             key: 'Conservation Areas',
             url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=heritage:conservation_area&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
@@ -34,7 +70,7 @@ const Configuration = {
                 style: planappStyle
             },
             displayOverlay: true,
-            visibleByDefault: true
+            visibleByDefault: false
         },
 
         {
@@ -46,7 +82,7 @@ const Configuration = {
                 style: planappStyle
             },
             displayOverlay: true,
-            visibleByDefault: true
+            visibleByDefault: false
         },
 
         {
@@ -58,21 +94,10 @@ const Configuration = {
                 style: planappStyle
             },
             displayOverlay: true,
-            visibleByDefault: true
+            visibleByDefault: false
         },
 
-        {
-            key: 'Tree Preservation Orders',
-            url: 'https://spatial.stockport.gov.uk/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=trees:tpo_merged&outputFormat=application/json&bbox={0},EPSG:4326&srsName=EPSG:4326',
-            layerOptions: {
-                onEachFeature: tpoPopup,
-                maxZoom: 2,
-                style: tpoStyle
-            },
-            displayOverlay: true,
-            visibleByDefault: true
-        },
-
+        
         {
             key: 'os1250_line',
             url: 'http://spatial.stockport.gov.uk/geoserver/wms?',
